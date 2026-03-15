@@ -23,6 +23,8 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
+DEVICE_PATH := device/lenovo/X505X
+
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
@@ -41,8 +43,9 @@ TARGET_BOOTLOADER_BOARD_NAME := msm8937
 TARGET_NO_BOOTLOADER := true
 
 # Kernel
-BOARD_KERNEL_IMAGE_NAME := zImage
-TARGET_PREBUILT_KERNEL := device/lenovo/X505F/prebuilt/zImage
+BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz-dtb
+BOARD_INCLUDE_DTB_IN_BOOTIMG := false
 
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 2048
@@ -77,6 +80,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x04000000
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x04000000
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x100000000
+BOARD_SUPPORTS_DYNAMIC_PARTITIONS := false
 
 # treble
 TARGET_COPY_OUT_VENDOR := vendor
@@ -119,5 +123,8 @@ TW_HAS_EDL_MODE := true
 TW_INCLUDE_NTFS_3G := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_OVERRIDE_SYSTEM_PROPS := \ "ro.build.product;ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental;ro.product.device=ro.product.system.device;ro.product.model=ro.product.system.model;ro.product.name=ro.product.system.name"
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
 
-
+# Device Assert
+TARGET_OTA_ASSERT_DEVICE := X505X,TB-X505X,TB-X505F,TB-X505L
