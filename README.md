@@ -3,7 +3,7 @@
 ## Release info
 This is an unofficial build.  It decrypts data partition.  MTP working.  Install at your own risk.
 
-Build with minimal AOSP TWRP for Android 11.0.
+Build with minimal AOSP TWRP for Android 12.1.
 
 ### About Device
 
