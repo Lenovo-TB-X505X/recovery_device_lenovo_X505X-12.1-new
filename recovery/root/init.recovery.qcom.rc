@@ -29,7 +29,7 @@ import /init.recovery.qcom_decrypt.rc
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
-    ln -s /sys/class/power_supply/battery/status /sys/class/power_supply/bms/status
+    symlink /sys/class/power_supply/battery/status /sys/class/power_supply/bms/status
 
 on property:ro.crypto.type=file
     setprop ro.crypto.state encrypted
