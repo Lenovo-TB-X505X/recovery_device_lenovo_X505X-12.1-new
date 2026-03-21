@@ -37,3 +37,5 @@ To build:
 lunch twrp_X505X-eng
 mka recoveryimage
 ```
+
+Note: You have to apply the patch in "patches" folder to the TWRP source before building to fix battery charging indicator.
