@@ -1,0 +1,32 @@
+From f2ad63bea16fa89c9298bb7b5dce45e71828f849 Mon Sep 17 00:00:00 2001
+From: TheGamerKing561 <eyadtamer2121@gmail.com>
+Date: Sat, 21 Mar 2026 14:39:32 +0200
+Subject: [PATCH] PATCH: Always use battery/status for charging indicator
+
+---
+ twrp.cpp | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/twrp.cpp b/twrp.cpp
+index eedc581..9ee68e9 100755
+--- a/twrp.cpp
++++ b/twrp.cpp
+@@ -439,13 +439,9 @@ int main(int argc, char **argv) {
+ 				if (lastVal > 100)	lastVal = 101;
+ 				if (lastVal < 0)	lastVal = 0;
+ 			}
+-#ifdef TW_CUSTOM_BATTERY_PATH
+-			string status_file = EXPAND(TW_CUSTOM_BATTERY_PATH);
+-			status_file += "/status";
+-			cap = fopen(status_file.c_str(),"rt");
+-#else
++
+ 			cap = fopen("/sys/class/power_supply/battery/status","rt");
+-#endif
++
+ 			if (cap) {
+ 				fgets(cap_s, 2, cap);
+ 				fclose(cap);
+-- 
+2.53.0
+
