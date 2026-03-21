@@ -1,7 +1,7 @@
 From f2ad63bea16fa89c9298bb7b5dce45e71828f849 Mon Sep 17 00:00:00 2001
 From: TheGamerKing561 <eyadtamer2121@gmail.com>
 Date: Sat, 21 Mar 2026 14:39:32 +0200
-Subject: [PATCH] PATCH: Always use battery/status for charging indicator
+Subject: [PATCH] Always use battery/status for charging indicator
 
 ---
  twrp.cpp | 8 ++------
