@@ -1,32 +1,30 @@
-From f2ad63bea16fa89c9298bb7b5dce45e71828f849 Mon Sep 17 00:00:00 2001
+From f5b6c84b47b81b4af52e92e164198b3fdd72d570 Mon Sep 17 00:00:00 2001
 From: TheGamerKing561 <eyadtamer2121@gmail.com>
-Date: Sat, 21 Mar 2026 14:39:32 +0200
+Date: Sat, 21 Mar 2026 20:14:05 +0200
 Subject: [PATCH] Always use battery/status for charging indicator
 
+In my experience, /sys/class/power_supply/bms/capacity gives the correct battery capacity for our device, but using BMS as the battery path breaks the battery charging indicator as BMS doesn't expose battery charging status.
+
+This patch forces TWRP to always use /sys/class/power_supply/battery/status for the charging indicator regardless of the set TW_CUSTOM_BATTERY_PATH.
 ---
- twrp.cpp | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ twrp.cpp | 4 ----
+ 1 file changed, 4 deletions(-)
 
 diff --git a/twrp.cpp b/twrp.cpp
-index eedc581..9ee68e9 100755
+index c9f597a..2c9473e 100644
 --- a/twrp.cpp
 +++ b/twrp.cpp
-@@ -439,13 +439,9 @@ int main(int argc, char **argv) {
- 				if (lastVal > 100)	lastVal = 101;
+@@ -440,10 +440,6 @@ int main(int argc, char **argv) {
  				if (lastVal < 0)	lastVal = 0;
  			}
--#ifdef TW_CUSTOM_BATTERY_PATH
+ #ifdef TW_CUSTOM_BATTERY_PATH
 -			string status_file = EXPAND(TW_CUSTOM_BATTERY_PATH);
 -			status_file += "/status";
 -			cap = fopen(status_file.c_str(),"rt");
 -#else
-+
  			cap = fopen("/sys/class/power_supply/battery/status","rt");
--#endif
-+
+ #endif
  			if (cap) {
- 				fgets(cap_s, 2, cap);
- 				fclose(cap);
 -- 
-2.53.0
+2.53.0.windows.1
 
