@@ -1,0 +1,42 @@
+From 8e8c7811df2858a59dd6e12c609824a8f239afbe Mon Sep 17 00:00:00 2001
+From: TheGamerKing561 <eyadtamer2121@gmail.com>
+Date: Sun, 22 Mar 2026 03:49:24 +0200
+Subject: [PATCH] Use bms/capacity for percentage, and keep Health HAL for charging status
+
+In my experience, /sys/class/power_supply/bms/capacity gives the correct battery capacity for our device.
+
+This patch forces TWRP to use BMS for battery percentage, and the health HAL for battery charging indicator.
+---
+ twrp.cpp | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/twrp.cpp b/twrp.cpp
+index c9f597a..bf0eb07 100644
+--- a/twrp.cpp
++++ b/twrp.cpp
+@@ -461,7 +461,21 @@ int main(int argc, char **argv) {
+ 			} else {
+ 				charging = ' ';
+ 			}
+-			lastVal = battery_info.capacity;
++
++			// use battery capacity from bms/capacity instead of health HAL
++			FILE* cap = fopen("/sys/class/power_supply/bms/capacity", "rt");
++			if (cap) {
++				char cap_s[4];
++				fgets(cap_s, sizeof(cap_s), cap);
++				fclose(cap);
++
++				lastVal = atoi(cap_s);
++				if (lastVal > 100) lastVal = 101;
++				if (lastVal < 0) lastVal = 0;
++			} else {
++				// fallback to HAL if file fails
++				lastVal = battery_info.capacity;
++			}
+ #endif
+ 			// Format the value based on the background updates
+ 			value = std::to_string(lastVal) + "%" + charging;
+-- 
+2.53.0.windows.1
+
