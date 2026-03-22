@@ -1,20 +1,20 @@
-From 8e8c7811df2858a59dd6e12c609824a8f239afbe Mon Sep 17 00:00:00 2001
+From 9a2f98dbc7d0cfc82985ceaca4ce84ab783089f2 Mon Sep 17 00:00:00 2001
 From: TheGamerKing561 <eyadtamer2121@gmail.com>
-Date: Sun, 22 Mar 2026 03:49:24 +0200
+Date: Sun, 22 Mar 2026 05:00:24 +0200
 Subject: [PATCH] Use bms/capacity for percentage, and keep Health HAL for charging status
 
 In my experience, /sys/class/power_supply/bms/capacity gives the correct battery capacity for our device.
 
 This patch forces TWRP to use BMS for battery percentage, and the health HAL for battery charging indicator.
 ---
- twrp.cpp | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
+ twrp.cpp | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
 diff --git a/twrp.cpp b/twrp.cpp
-index c9f597a..bf0eb07 100644
+index c9f597a..9254069 100644
 --- a/twrp.cpp
 +++ b/twrp.cpp
-@@ -461,7 +461,21 @@ int main(int argc, char **argv) {
+@@ -461,7 +461,26 @@ int main(int argc, char **argv) {
  			} else {
  				charging = ' ';
  			}
@@ -31,7 +31,12 @@ index c9f597a..bf0eb07 100644
 +				if (lastVal > 100) lastVal = 101;
 +				if (lastVal < 0) lastVal = 0;
 +			} else {
-+				// fallback to HAL if file fails
++				// fallback to HAL if file fails and print to log
++				static bool logged_failure = false;
++				if (!logged_failure) {
++					LOGERR("Failed to open /sys/class/power_supply/bms/capacity, using HAL\n");
++					logged_failure = true;
++				}
 +				lastVal = battery_info.capacity;
 +			}
  #endif
