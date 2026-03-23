@@ -21,8 +21,11 @@ PRODUCT_RELEASE_NAME := X505X
 # inherit the usual stuff...
 $(call inherit-product, build/target/product/aosp_base.mk)
 
+# Inherit common product files.
+$(call inherit-product, vendor/pb/config/common.mk)
+
 ## Device identifier. This must come after all inclusions
-PRODUCT_NAME := twrp_$(PRODUCT_RELEASE_NAME)
+PRODUCT_NAME := pb_$(PRODUCT_RELEASE_NAME)
 PRODUCT_DEVICE := $(PRODUCT_RELEASE_NAME)
 PRODUCT_BRAND := Lenovo
 PRODUCT_MODEL := Lenovo TB-X505X
