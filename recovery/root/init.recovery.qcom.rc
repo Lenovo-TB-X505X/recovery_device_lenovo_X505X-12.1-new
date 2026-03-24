@@ -58,10 +58,3 @@ service servicemanager /system/bin/servicemanager
     seclabel u:r:recovery:s0
     writepid /dev/cpuset/system-background/tasks
 
-#service health-hal-2-0 /system/bin/android.hardware.health@2.0-service
-#    user root
-#    group root
-#    capabilities WAKE_ALARM
-#    file /dev/kmsg w
-#    seclabel u:r:recovery:s0
-
