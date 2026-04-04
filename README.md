@@ -1,41 +1,100 @@
-# TWRP device tree for Lenovo Smart Tab M10 HD (TB-X505X)
+# 📱 TWRP Device Tree — Lenovo Smart Tab M10 HD (TB-X505X)
 
-## Release info
-This is an unofficial build.  It decrypts data partition.  MTP working.  Install at your own risk.
+![Lenovo Smart Tab M10 HD](https://static.lenovo.com/ww/campaigns/2019/smarttab/lenovo-smart-tab-gallery-5.jpg)
 
-Build with minimal AOSP TWRP for Android 12.1.
+## 📌 Overview
+This repository contains the **TWRP device tree** for the **Lenovo Smart Tab M10 HD (TB-X505X)**.
 
-### About Device
+- Based on **AOSP recovery (Android 12.1 / TWRP minimal)**
+- Fully functional for basic recovery usage
 
-![Lenovo Smart Tab M10 HD](https://static.lenovo.com/ww/campaigns/2019/smarttab/lenovo-smart-tab-gallery-5.jpg "Lenovo Smart Tab M10 HD (TB-X505F)")
+> ⚠️ **Disclaimer:**  
+> This is an **unofficial build**. Flashing custom recovery may void your warranty or brick your device. Proceed only if you know what you're doing.
 
-Recovery Device Tree for Lenovo Smart Tab M10 HD (TB-X505X)
-================================================================
-Component   | Specs
--------:|:-------------------------
-Chipset| Qualcomm Snapdragon 429 (SDM429)
-CPU | ARM Cortex-A53, Quad-Core, 2.0 GHz
-GPU     | Qualcomm Adreno 504, 650 MHz
-Memory  | 2 GB (soldered)
-Shipped Android Version | 8.0 (Oreo), upgrade to 9.0 (Pie)
-Storage | 16 GB (eMPC)
-MicroSD | Up to 256 GB
-Battery | 4850 mAh, Li-Po (non-removable)
-Display | 1280x800 pixels, 10.1"
-Front Camera | 2.0 MP, fixed focus
-Rear Camera  | 5.0 MP, auto focus
-Wifi | dual band, 802.11a/ac/b/g/n
-Bluetooth | v4.2
-USB | USB-C (micro USB)
-Release Date | April 2019
+---
 
+## ✅ Features
 
-To build:
+- ✔️ Booting recovery  
+- ✔️ FBE/FDE decryption working  
+- ✔️ MTP working  
+- ✔️ Touchscreen working  
+- ✔️ NTFS support  
 
-```
+---
+
+## ⚠️ Known Issues
+
+- Battery percentage requires patch (see below)  
+- Minor UI glitches may occur  
+
+---
+
+## 📱 Device Specifications
+
+| Component | Specification |
+|----------|--------------|
+| Chipset | Qualcomm Snapdragon 429 (SDM429) |
+| CPU | Quad-core Cortex-A53 @ 2.0 GHz |
+| GPU | Adreno 504 |
+| RAM | 2 GB |
+| Storage | 16 GB (eMMC) |
+| microSD | Up to 256 GB |
+| Display | 10.1" 1280 × 800 |
+| Battery | 4850 mAh |
+| Rear Camera | 5 MP |
+| Front Camera | 2 MP |
+| Wi-Fi | Dual-band 802.11 a/b/g/n/ac |
+| Bluetooth | 4.2 |
+| USB | USB Type-C |
+| Android | 8.0 → 9.0 |
+| Release | April 2019 |
+
+---
+
+## 🛠️ Build Instructions
+
+```bash
 . build/envsetup.sh
 lunch twrp_X505X-eng
 mka recoveryimage
 ```
 
-Note: You have to apply the patch in "patches" folder to the TWRP source (bootable/recovery directory) before building to fix battery percentage indicator.
+---
+
+## 🔧 Required Patch
+
+Apply the patch inside:
+```
+patches/
+```
+
+To:
+```
+bootable/recovery
+```
+
+Fixes:
+- Battery percentage indicator
+
+---
+
+## 📦 Notes
+
+- Uses prebuilt kernel  
+- Qualcomm FBE decryption enabled  
+- Fake security patch level used for compatibility  
+
+---
+
+## 🙌 Credits
+
+- TeamWin Recovery Project (TWRP)  
+- Android Open Source Project (AOSP)  
+- Lenovo  
+
+---
+
+## 📜 License
+
+SPDX-License-Identifier: Apache-2.0
